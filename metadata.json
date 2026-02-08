@@ -1,0 +1,7 @@
+{
+  "name": "Chef AI: Recipe & Visualizer",
+  "description": "An AI-powered cooking assistant that generates gourmet recipes from your ingredients and allows you to visualize and stylize the results with image editing.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
