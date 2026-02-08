@@ -8,7 +8,7 @@ export const generateRecipe = async (ingredients: string): Promise<Recipe> => {
   const ai = new GoogleGenAI({ apiKey: API_KEY });
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
-    contents: `Create a professional cooking recipe using some or all of these ingredients: ${ingredients}. Provide the response in JSON format.`,
+    contents: `다음 재료들을 활용하거나 기반으로 하여 전문적인 요리 레시피를 만들어주세요: ${ingredients}. 모든 응답(제목, 설명, 재료 리스트, 조리 방법 등)은 반드시 한국어로 작성해야 합니다. JSON 형식으로 제공하세요.`,
     config: {
       responseMimeType: "application/json",
       responseSchema: {
@@ -33,7 +33,7 @@ export const generateRecipe = async (ingredients: string): Promise<Recipe> => {
   });
 
   const text = response.text;
-  if (!text) throw new Error("No response from AI");
+  if (!text) throw new Error("AI로부터 응답을 받지 못했습니다.");
   return JSON.parse(text);
 };
 
@@ -43,7 +43,7 @@ export const generateInitialImage = async (dishTitle: string): Promise<string> =
     model: 'gemini-2.5-flash-image',
     contents: {
       parts: [
-        { text: `A professional food photography shot of ${dishTitle}. High resolution, appetizing, gourmet presentation, soft lighting.` }
+        { text: `A professional food photography shot of a dish named "${dishTitle}". High resolution, appetizing, gourmet presentation, soft cinematic lighting, 4k.` }
       ]
     },
     config: {
@@ -58,12 +58,11 @@ export const generateInitialImage = async (dishTitle: string): Promise<string> =
       return `data:image/png;base64,${part.inlineData.data}`;
     }
   }
-  throw new Error("Failed to generate image");
+  throw new Error("이미지 생성에 실패했습니다.");
 };
 
 export const editImageWithPrompt = async (base64Image: string, prompt: string): Promise<string> => {
   const ai = new GoogleGenAI({ apiKey: API_KEY });
-  // Remove data:image/png;base64, prefix if it exists
   const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, "");
 
   const response = await ai.models.generateContent({
@@ -76,7 +75,7 @@ export const editImageWithPrompt = async (base64Image: string, prompt: string): 
             mimeType: 'image/png',
           },
         },
-        { text: prompt },
+        { text: `Modify this food image according to this request: ${prompt}. Maintain the food's identity but change the style or environment as requested.` },
       ],
     },
   });
@@ -86,5 +85,5 @@ export const editImageWithPrompt = async (base64Image: string, prompt: string): 
       return `data:image/png;base64,${part.inlineData.data}`;
     }
   }
-  throw new Error("Failed to edit image");
+  throw new Error("이미지 수정에 실패했습니다.");
 };

@@ -26,7 +26,7 @@ const App: React.FC = () => {
       setImageUrl(initialImg);
     } catch (err) {
       console.error(err);
-      setError("Failed to create recipe. Please try different ingredients.");
+      setError("레시피를 생성하지 못했습니다. 재료를 다시 확인해주세요.");
     } finally {
       setIsLoading(false);
     }
@@ -43,7 +43,7 @@ const App: React.FC = () => {
       setEditPrompt('');
     } catch (err) {
       console.error(err);
-      setError("Failed to edit image. The prompt might be too complex.");
+      setError("이미지를 수정하지 못했습니다. 요청이 너무 복잡할 수 있습니다.");
     } finally {
       setIsEditing(false);
     }
@@ -65,12 +65,12 @@ const App: React.FC = () => {
             <div className="bg-orange-500 p-2 rounded-lg">
               <ChefHat className="text-white h-6 w-6" />
             </div>
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">Chef AI</h1>
+            <h1 className="text-xl font-bold text-slate-900 tracking-tight">셰프 AI</h1>
           </div>
           {recipe && (
             <Button variant="ghost" onClick={handleReset} className="text-sm">
               <RefreshCcw className="h-4 w-4" />
-              Start Over
+              처음부터 다시하기
             </Button>
           )}
         </div>
@@ -80,17 +80,17 @@ const App: React.FC = () => {
         {!recipe ? (
           <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="text-center space-y-4">
-              <h2 className="text-4xl font-extrabold text-slate-900">What's in your fridge?</h2>
-              <p className="text-slate-500 text-lg">Input your ingredients, and we'll craft a gourmet recipe and visual for you.</p>
+              <h2 className="text-4xl font-extrabold text-slate-900">냉장고에 무엇이 있나요?</h2>
+              <p className="text-slate-500 text-lg">재료를 입력하면 AI가 당신만을 위한 특별한 미식 레시피와 시각 자료를 만들어 드립니다.</p>
             </div>
 
             <div className="bg-white p-6 rounded-3xl shadow-xl shadow-slate-200 border border-slate-100">
               <div className="space-y-4">
-                <label className="block text-sm font-semibold text-slate-700">Ingredients (comma separated)</label>
+                <label className="block text-sm font-semibold text-slate-700">사용 가능한 재료 (쉼표로 구분)</label>
                 <textarea
                   value={ingredients}
                   onChange={(e) => setIngredients(e.target.value)}
-                  placeholder="e.g. Chicken breast, heavy cream, garlic, spinach, parmesan..."
+                  placeholder="예: 닭가슴살, 생크림, 마늘, 시금치, 파마산 치즈, 올리브유..."
                   className="w-full h-32 p-4 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all outline-none resize-none text-slate-800"
                 />
                 <Button 
@@ -100,7 +100,7 @@ const App: React.FC = () => {
                   disabled={!ingredients.trim()}
                 >
                   <Sparkles className="h-5 w-5" />
-                  Generate Gourmet Recipe
+                  미식 레시피 생성하기
                 </Button>
               </div>
             </div>
@@ -116,22 +116,22 @@ const App: React.FC = () => {
                 <div className="bg-orange-200 w-10 h-10 rounded-full flex items-center justify-center">
                   <ChefHat className="text-orange-600 h-5 w-5" />
                 </div>
-                <h3 className="font-bold text-slate-800">Smart Recipes</h3>
-                <p className="text-sm text-slate-600">Tailored instructions based on exactly what you have on hand.</p>
+                <h3 className="font-bold text-slate-800">스마트 레시피</h3>
+                <p className="text-sm text-slate-600">가지고 계신 재료에 딱 맞춘 최적의 조리법을 제안합니다.</p>
               </div>
               <div className="p-6 bg-blue-50 rounded-3xl space-y-3">
                 <div className="bg-blue-200 w-10 h-10 rounded-full flex items-center justify-center">
                   <ImageIcon className="text-blue-600 h-5 w-5" />
                 </div>
-                <h3 className="font-bold text-slate-800">Visual Styling</h3>
-                <p className="text-sm text-slate-600">See the final dish before you even start cooking with AI imaging.</p>
+                <h3 className="font-bold text-slate-800">비주얼 스타일링</h3>
+                <p className="text-sm text-slate-600">요리를 시작하기 전, 완성된 모습의 이미지를 미리 확인하세요.</p>
               </div>
               <div className="p-6 bg-purple-50 rounded-3xl space-y-3">
                 <div className="bg-purple-200 w-10 h-10 rounded-full flex items-center justify-center">
                   <Wand2 className="text-purple-600 h-5 w-5" />
                 </div>
-                <h3 className="font-bold text-slate-800">Magic Editing</h3>
-                <p className="text-sm text-slate-600">Apply filters or change the background with simple text prompts.</p>
+                <h3 className="font-bold text-slate-800">매직 에디팅</h3>
+                <p className="text-sm text-slate-600">간단한 텍스트로 완성 사진의 배경이나 분위기를 바꿔보세요.</p>
               </div>
             </div>
           </div>
@@ -142,7 +142,7 @@ const App: React.FC = () => {
               <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
                 <div className="flex items-center gap-3 text-orange-600 font-bold text-sm uppercase tracking-wider mb-2">
                   <ChefHat className="h-4 w-4" />
-                  Recipe Card
+                  오늘의 레시피
                 </div>
                 <h2 className="text-3xl font-extrabold text-slate-900 mb-4">{recipe.title}</h2>
                 <p className="text-slate-600 mb-6 leading-relaxed italic border-l-4 border-orange-200 pl-4">
@@ -151,12 +151,12 @@ const App: React.FC = () => {
                 
                 <div className="flex gap-6 mb-8">
                   <div className="text-center">
-                    <p className="text-xs text-slate-400 font-bold uppercase">Prep Time</p>
+                    <p className="text-xs text-slate-400 font-bold uppercase">조리 시간</p>
                     <p className="text-lg font-bold text-slate-800">{recipe.prepTime}</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-xs text-slate-400 font-bold uppercase">Servings</p>
-                    <p className="text-lg font-bold text-slate-800">{recipe.servings}</p>
+                    <p className="text-xs text-slate-400 font-bold uppercase">인분</p>
+                    <p className="text-lg font-bold text-slate-800">{recipe.servings}인분</p>
                   </div>
                 </div>
 
@@ -164,7 +164,7 @@ const App: React.FC = () => {
                   <div>
                     <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
                       <div className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
-                      Ingredients
+                      필요한 재료
                     </h3>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {recipe.ingredients.map((ing, i) => (
@@ -179,7 +179,7 @@ const App: React.FC = () => {
                   <div>
                     <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
                       <div className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
-                      Instructions
+                      조리 순서
                     </h3>
                     <ol className="space-y-6">
                       {recipe.instructions.map((step, i) => (
@@ -202,10 +202,10 @@ const App: React.FC = () => {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3 text-blue-600 font-bold text-sm uppercase tracking-wider">
                     <ImageIcon className="h-4 w-4" />
-                    Dish Visualization
+                    요리 이미지 시각화
                   </div>
                   {isEditing && (
-                    <span className="text-xs font-medium text-slate-400 animate-pulse">AI is editing...</span>
+                    <span className="text-xs font-medium text-slate-400 animate-pulse">AI 수정 중...</span>
                   )}
                 </div>
                 
@@ -224,13 +224,13 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="mt-6 space-y-4">
-                  <h4 className="text-sm font-bold text-slate-700">Edit this image with AI</h4>
+                  <h4 className="text-sm font-bold text-slate-700">AI로 이미지 꾸미기</h4>
                   <div className="flex flex-col gap-3">
                     <input
                       type="text"
                       value={editPrompt}
                       onChange={(e) => setEditPrompt(e.target.value)}
-                      placeholder="Try 'Add a retro filter' or 'Set it on a marble table'..."
+                      placeholder="'레트로 필터 추가', '대리석 식탁 위에 놓아줘' 등..."
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all outline-none text-sm"
                       onKeyDown={(e) => e.key === 'Enter' && handleEditImage()}
                     />
@@ -242,11 +242,11 @@ const App: React.FC = () => {
                       disabled={!editPrompt.trim() || !imageUrl}
                     >
                       <Wand2 className="h-4 w-4" />
-                      Apply Visual Edit
+                      이미지에 효과 적용
                     </Button>
                   </div>
                   <div className="flex flex-wrap gap-2 mt-4">
-                    {['B&W filter', 'Cinematic lighting', 'Modern kitchen background', 'Blur background'].map((hint) => (
+                    {['흑백 필터', '시네마틱 조명', '현대적인 주방 배경', '배경 흐리게'].map((hint) => (
                       <button
                         key={hint}
                         onClick={() => setEditPrompt(hint)}
@@ -275,13 +275,13 @@ const App: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex items-center gap-2">
               <ChefHat className="h-6 w-6 text-orange-500" />
-              <span className="text-white font-bold text-xl">Chef AI</span>
+              <span className="text-white font-bold text-xl">셰프 AI</span>
             </div>
             <p className="text-sm">Powered by Gemini 3 Flash & 2.5 Flash Image</p>
             <div className="flex gap-6 text-sm font-medium">
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms</a>
-              <a href="#" className="hover:text-white transition-colors">Contact</a>
+              <a href="#" className="hover:text-white transition-colors">개인정보처리방침</a>
+              <a href="#" className="hover:text-white transition-colors">이용약관</a>
+              <a href="#" className="hover:text-white transition-colors">문의하기</a>
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-slate-800 text-center text-xs">
